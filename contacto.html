@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto — Andrea's</title>
+    <meta name="description" content="Contacta con Andrea's para preguntas, colaboraciones, prensa y editoriales.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #FFFBF5;
+            --beige: #F5EDE3;
+            --tan: #E8D5BC;
+            --gold: #B8935A;
+            --gold-hover: #A07D48;
+            --gold-light: rgba(184, 147, 90, 0.12);
+            --text: #2A2520;
+            --text-mid: #6B6159;
+            --text-light: #9A9088;
+            --dark: #1E1B18;
+            --white: #FFFFFF;
+            --border: rgba(42, 37, 32, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Raleway', sans-serif;
+            font-weight: 400;
+            color: var(--text);
+            background: var(--cream);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        img { max-width: 100%; display: block; }
+        a { text-decoration: none; color: inherit; }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            line-height: 1.3;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--cream); }
+        ::-webkit-scrollbar-thumb { background: var(--tan); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+        /* NAV */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 25px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(255, 251, 245, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 2px 30px rgba(42, 37, 32, 0.06);
+            transition: all 0.4s ease;
+        }
+
+        .nav-logo {
+    display: flex;
+    align-items: center;
+}
+
+.nav-logo-img {
+    height: 40px;
+    width: auto;
+    display: block;
+}
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-mid);
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--gold); }
+        .nav-links a:hover::after { width: 100%; }
+
+        .nav-links a.active { color: var(--gold); }
+        .nav-links a.active::after { width: 100%; }
+
+        .nav-cta {
+            padding: 10px 25px;
+            background: var(--gold);
+            color: var(--white) !important;
+            border-radius: 25px;
+            font-size: 11px !important;
+            letter-spacing: 2px;
+            transition: all 0.3s !important;
+        }
+
+        .nav-cta::after { display: none !important; }
+        .nav-cta:hover {
+            background: var(--gold-hover) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(184, 147, 90, 0.3);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 28px;
+            height: 2px;
+            background: var(--text);
+            margin: 6px 0;
+            transition: all 0.3s;
+        }
+
+        /* PAGE HEADER */
+        .page-header {
+            padding: 160px 40px 80px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--beige) 0%, var(--cream) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
+            background: var(--gold);
+            opacity: 0.08;
+        }
+
+        .ph-shape-1 {
+            width: 400px;
+            height: 400px;
+            top: -100px;
+            right: -50px;
+        }
+
+        .ph-shape-2 {
+            width: 300px;
+            height: 300px;
+            bottom: -80px;
+            left: -50px;
+        }
+
+        .page-header h1 {
+            font-size: clamp(40px, 6vw, 64px);
+            color: var(--text);
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.2s forwards;
+        }
+
+        .page-header h1 em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .page-header p {
+            font-size: 17px;
+            color: var(--text-mid);
+            max-width: 550px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.5s forwards;
+        }
+
+        .page-divider {
+            width: 50px;
+            height: 1px;
+            background: var(--gold);
+            margin: 25px auto 0;
+            opacity: 0;
+            animation: fadeIn 1s ease 0.8s forwards;
+        }
+
+        /* CONTACT GRID */
+        .contact-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        /* CONTACT FORM */
+        .contact-form-container {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 50px;
+            box-shadow: 0 10px 40px rgba(42, 37, 32, 0.06);
+            border: 1px solid var(--border);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+
+        .contact-form-container h2 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .contact-form-container p {
+            font-size: 15px;
+            color: var(--text-mid);
+            margin-bottom: 35px;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            padding: 14px 18px;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            background: var(--cream);
+            color: var(--text);
+            font-family: 'Raleway', sans-serif;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--gold);
+            background: var(--white);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--text-light);
+        }
+
+        .btn-submit {
+            padding: 16px 40px;
+            background: var(--gold);
+            color: var(--white);
+            font-family: 'Raleway', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background: var(--gold-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(184, 147, 90, 0.35);
+        }
+
+        /* CONTACT INFO */
+        .contact-info-container {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease 0.6s forwards;
+        }
+
+        .contact-info-section {
+            margin-bottom: 45px;
+        }
+
+        .contact-info-section h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--text);
+        }
+
+        .contact-info-section h3 em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .contact-info-list {
+            list-style: none;
+        }
+
+        .contact-info-list li {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+        .contact-info-list li span {
+            font-size: 14px;
+            color: var(--text-mid);
+            line-height: 1.7;
+        }
+
+        .contact-info-list li a {
+            color: var(--gold);
+            transition: color 0.3s;
+        }
+
+        .contact-info-list li a:hover { color: var(--gold-hover); }
+
+        .contact-icon {
+            width: 24px;
+            height: 24px;
+            color: var(--gold);
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .contact-icon svg {
+            width: 100%;
+            height: 100%;
+            stroke: var(--gold);
+            fill: none;
+            stroke-width: 1.5;
+        }
+
+        /* PRESS SECTION */
+        .press-section {
+            background: var(--beige);
+            padding: 100px 40px;
+            margin-top: 40px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease 0.9s forwards;
+        }
+
+        .press-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .press-container h2 {
+            font-size: 32px;
+            text-align: center;
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+
+        .press-container h2 em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .press-container p {
+            font-size: 16px;
+            color: var(--text-mid);
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 45px;
+        }
+
+        .press-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .press-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 35px;
+            box-shadow: 0 8px 30px rgba(42, 37, 32, 0.06);
+            border: 1px solid var(--border);
+            transition: all 0.3s;
+        }
+
+        .press-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(42, 37, 32, 0.12);
+        }
+
+        .press-card h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+
+        .press-card p {
+            font-size: 14px;
+            color: var(--text-mid);
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .btn-press {
+            display: inline-block;
+            padding: 10px 25px;
+            background: transparent;
+            color: var(--gold);
+            font-family: 'Raleway', sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border-radius: 20px;
+            border: 1px solid var(--gold);
+            transition: all 0.3s;
+        }
+
+        .btn-press:hover {
+            background: var(--gold);
+            color: var(--white);
+        }
+
+        /* LEGAL SECTION */
+        .legal-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 40px 80px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease 1.2s forwards;
+        }
+
+        .legal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .legal-card {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 8px 30px rgba(42, 37, 32, 0.06);
+            border: 1px solid var(--border);
+        }
+
+        .legal-card h3 {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+
+        .legal-card ul {
+            list-style: none;
+        }
+
+        .legal-card ul li {
+            margin-bottom: 10px;
+        }
+
+        .legal-card ul li a {
+            font-size: 13px;
+            color: var(--text-mid);
+            transition: color 0.3s;
+        }
+
+        .legal-card ul li a:hover { color: var(--gold); }
+
+        /* FOOTER */
+        .footer {
+            background: var(--dark);
+            color: rgba(245, 240, 232, 0.6);
+            padding: 60px 60px 40px;
+        }
+
+        .footer-bottom {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            font-size: 12px;
+            color: rgba(245, 240, 232, 0.3);
+        }
+
+        .footer-bottom a {
+            font-size: 12px;
+            color: rgba(245, 240, 232, 0.3);
+            transition: color 0.3s;
+        }
+
+        .footer-bottom a:hover { color: var(--gold); }
+
+        /* ANIMACIONES */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        /* PARTÍCULAS Y LÍNEAS */
+        .hero-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .hero-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .hero-line {
+            position: absolute;
+            width: 1px;
+            height: 100%;
+            background: linear-gradient(
+                180deg,
+                transparent 0%,
+                rgba(184, 147, 90, 0.08) 30%,
+                rgba(184, 147, 90, 0.15) 50%,
+                rgba(184, 147, 90, 0.08) 70%,
+                transparent 100%
+            );
+            animation: line-flow 8s ease-in-out infinite;
+        }
+
+        .line-1 { left: 20%; animation-delay: 0s; }
+        .line-2 { left: 50%; animation-delay: 2.5s; }
+        .line-3 { left: 80%; animation-delay: 5s; }
+
+        @keyframes line-flow {
+            0%, 100% { opacity: 0; transform: translateY(-100%); }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(100%); }
+        }
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav { padding: 18px 25px; }
+            .menu-toggle { display: block; }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 75%;
+                height: 100vh;
+                background: rgba(255, 251, 245, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 25px;
+                transition: right 0.4s ease;
+                box-shadow: -10px 0 40px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active { right: 0; }
+            .nav-links a { font-size: 14px; color: var(--text); }
+
+            .page-header { padding: 130px 25px 60px; }
+
+            .contact-grid {
+                padding: 60px 25px;
+                gap: 30px;
+            }
+
+            .contact-form-container {
+                padding: 35px 25px;
+            }
+
+            .press-section { padding: 70px 25px; }
+            .legal-section { padding: 40px 25px 60px; }
+
+            .footer { padding: 40px 25px 30px; }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav class="nav">
+        <a href="index.html" class="nav-logo">
+    <img src="images/logo.jpg" alt="Andrea's" class="nav-logo-img">
+</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Menú">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html#libros">Libros</a></li>
+            <li><a href="index.html#sobre-mi">Sobre mí</a></li>
+            <li><a href="index.html#blog">Blog</a></li>
+            <li><a href="contacto.html" class="active">Contacto</a></li>
+            <li><a href="#" class="nav-cta">Tienda</a></li>
+        </ul>
+    </nav>
+
+    <!-- HEADER -->
+    <header class="page-header">
+        <div class="page-header-shape ph-shape-1"></div>
+        <div class="page-header-shape ph-shape-2"></div>
+        <h1>Contacta con <em>Andrea's</em></h1>
+        <p>¿Tienes preguntas, quieres colaborar o simplemente quieres compartir tu experiencia con mis libros? Estoy aquí para ayudarte.</p>
+        <div class="page-divider"></div>
+    </header>
+
+    <!-- CONTACT GRID -->
+    <div class="contact-grid">
+        <!-- CONTACT FORM -->
+        <div class="contact-form-container">
+            <h2>Envíame un mensaje</h2>
+            <p>Responderé a tu mensaje en el menor tiempo posible. No te olvides de incluir tu email para poder contactarte.</p>
+            <form class="contact-form" id="contactForm">
+                <div class="form-group">
+                    <label for="name">Nombre completo</label>
+                    <input type="text" id="name" name="name" placeholder="Tu nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="tu@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Asunto</label>
+                    <select id="subject" name="subject" required>
+                        <option value="">Selecciona un asunto</option>
+                        <option value="pregunta-libro">Pregunta sobre un libro</option>
+                        <option value="colaboracion">Colaboración</option>
+                        <option value="prensa">Prensa</option>
+                        <option value="editorial">Editorial</option>
+                        <option value="otro">Otro asunto</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Mensaje</label>
+                    <textarea id="message" name="message" placeholder="Escribe tu mensaje aquí..." required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Enviar mensaje</button>
+            </form>
+        </div>
+
+        <!-- CONTACT INFO -->
+        <div class="contact-info-container">
+            <div class="contact-info-section">
+                <h3>Información de <em>contacto</em></h3>
+                <ul class="contact-info-list">
+                    <li>
+    <div class="contact-icon">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+    </div>
+    <span>Email: <a href="mailto:libreriandreas@gmail.com">libreriandreas@gmail.com</a></span>
+</li>
+                    </li>
+                    <li>
+                        <div class="contact-icon">
+                            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        </div>
+                        <span>Ubicación: España (online)</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="contact-info-section">
+                <h3>Redes <em>sociales</em></h3>
+                <ul class="contact-info-list">
+                    <!-- CUANDO TENGA REDES, REEMPLAZA # CON ENLACES REALES -->
+                    <li>
+                        <div class="contact-icon">
+                            <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/></svg>
+                        </div>
+                        <span>Instagram: <a href="#">@andreas</a></span>
+                    </li>
+                    <li>
+                        <div class="contact-icon">
+                            <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.52a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.72a8.27 8.27 0 0 0 4.76 1.5V6.77a4.83 4.83 0 0 1-1-.08z"/></svg>
+                        </div>
+                        <span>TikTok: <a href="#">@andreas</a></span>
+                    </li>
+                    <li>
+                        <div class="contact-icon">
+                            <svg viewBox="0 0 24 24"><path d="M.045 18.02c.072-.116.187-.124.348-.022 3.636 2.11 7.594 3.166 11.87 3.166 2.852 0 5.668-.533 8.447-1.595l.315-.14c.16-.072.27-.022.327.14.057.16.01.27-.14.327-2.88 1.1-5.832 1.648-8.85 1.648-4.39 0-8.453-1.1-12.19-3.296-.115-.072-.153-.178-.127-.328z"/><path d="M19.95 16.28c-.192-.232-.478-.347-.862-.347h-.107c-.206.015-.393.073-.558.18-.166.108-.31.254-.43.44l-.216.39c-.46.68-.93 1.137-1.396 1.37-.48.232-.89.325-1.236.277-.52-.073-.78-.44-.78-1.1 0-.177.025-.383.074-.615.05-.233.118-.477.204-.732l.696-2.1c.086-.244.14-.455.167-.633.025-.178.038-.34.038-.48 0-.404-.107-.7-.32-.886-.215-.187-.49-.28-.83-.28-.338 0-.67.12-.996.36-.327.24-.605.532-.836.876l.348-.025c.12-.84.33-1.498.627-1.97.298-.473.6-.71.903-.71.217 0 .37.085.46.253.086.17.13.374.13.615 0 .18-.017.366-.05.557-.034.19-.094.41-.18.66l-.696 2.1c-.096.27-.163.5-.204.696-.04.196-.06.38-.06.557 0 .432.108.735.323.91.214.174.488.26.822.26.35 0 .685-.12 1.004-.36.32-.24.593-.535.822-.886z"/></svg>
+                        </div>
+                        <span>Amazon: <a href="https://www.amazon.es/stores/author/B0DJ1D1JZ7" target="_blank">Página de autor</a></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRESS SECTION -->
+    <section class="press-section">
+        <div class="press-container">
+            <h2>Prensa y <em>editoriales</em></h2>
+            <p>Si eres periodista, editor o trabajas en medios de comunicación, aquí tienes toda la información que necesitas para colaborar conmigo.</p>
+            <div class="press-grid">
+                <div class="press-card">
+                    <h3>Prensa</h3>
+                    <p>Entrevistas, reseñas, artículos o colaboraciones en medios de comunicación. Puedes descargar materiales de prensa y solicitar entrevistas.</p>
+                    <a href="#" class="btn-press">Solicitar entrevista</a>
+                </div>
+                <div class="press-card">
+                    <h3>Editoriales</h3>
+                    <p>Si eres editorial y quieres publicar mis libros o colaborar en proyectos conjuntos, contacta conmigo para discutir oportunidades.</p>
+                    <a href="#" class="btn-press">Contactar editorial</a>
+                </div>
+                <div class="press-card">
+                    <h3>Materiales de prensa</h3>
+                    <p>Descarga fotos, biografías, extractos de libros y otros materiales que necesites para tus artículos o reseñas.</p>
+                    <a href="#" class="btn-press">Descargar materiales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LEGAL SECTION -->
+    <section class="legal-section">
+        <div class="legal-grid">
+            <div class="legal-card">
+                <h3>Política de privacidad</h3>
+                <ul>
+                    <li><a href="#">Aviso legal</a></li>
+                    <li><a href="#">Política de cookies</a></li>
+                    <li><a href="#">Política de privacidad</a></li>
+                </ul>
+            </div>
+            <div class="legal-card">
+                <h3>Condiciones de uso</h3>
+                <ul>
+                    <li><a href="#">Condiciones de venta</a></li>
+                    <li><a href="#">Devoluciones y reembolsos</a></li>
+                    <li><a href="#">Términos y condiciones</a></li>
+                </ul>
+            </div>
+            <div class="legal-card">
+                <h3>Ayuda</h3>
+                <ul>
+                    <li><a href="#">Preguntas frecuentes</a></li>
+                    <li><a href="#">Cómo comprar</a></li>
+                    <li><a href="#">Seguimiento de pedidos</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-bottom">
+            <p>© 2025 Andrea's. Todos los derechos reservados.</p>
+            <a href="index.html">← Volver al inicio</a>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Menú móvil
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Contact form
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+            alert('¡Gracias por tu mensaje! Responderé lo antes posible.');
+            e.target.reset();
+        });
+    </script>
+
+</body>
+</html>

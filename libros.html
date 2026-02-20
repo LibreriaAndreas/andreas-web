@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Libros — Andrea's</title>
+    <meta name="description" content="Todos los libros y agendas de Andrea's. Novela, cuentos infantiles, autoayuda y agendas para acompañarte en tu camino.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #FFFBF5;
+            --beige: #F5EDE3;
+            --tan: #E8D5BC;
+            --gold: #B8935A;
+            --gold-hover: #A07D48;
+            --gold-light: rgba(184, 147, 90, 0.12);
+            --text: #2A2520;
+            --text-mid: #6B6159;
+            --text-light: #9A9088;
+            --dark: #1E1B18;
+            --white: #FFFFFF;
+            --border: rgba(42, 37, 32, 0.08);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Raleway', sans-serif;
+            font-weight: 400;
+            color: var(--text);
+            background: var(--cream);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        img { max-width: 100%; display: block; }
+        a { text-decoration: none; color: inherit; }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            line-height: 1.3;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--cream); }
+        ::-webkit-scrollbar-thumb { background: var(--tan); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+        /* NAV */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 25px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(255, 251, 245, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 2px 30px rgba(42, 37, 32, 0.06);
+            transition: all 0.4s ease;
+        }
+
+       .nav-logo {
+    display: flex;
+    align-items: center;
+}
+
+.nav-logo-img {
+    height: 40px;
+    width: auto;
+    display: block;
+}
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-mid);
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--gold); }
+        .nav-links a:hover::after { width: 100%; }
+
+        .nav-links a.active { color: var(--gold); }
+        .nav-links a.active::after { width: 100%; }
+
+        .nav-cta {
+            padding: 10px 25px;
+            background: var(--gold);
+            color: var(--white) !important;
+            border-radius: 25px;
+            font-size: 11px !important;
+            letter-spacing: 2px;
+            transition: all 0.3s !important;
+        }
+
+        .nav-cta::after { display: none !important; }
+        .nav-cta:hover {
+            background: var(--gold-hover) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(184, 147, 90, 0.3);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            z-index: 1001;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 28px;
+            height: 2px;
+            background: var(--text);
+            margin: 6px 0;
+            transition: all 0.3s;
+        }
+
+        /* PAGE HEADER */
+        .page-header {
+            padding: 160px 40px 80px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--beige) 0%, var(--cream) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
+            background: var(--gold);
+            opacity: 0.08;
+        }
+
+        .ph-shape-1 {
+            width: 400px;
+            height: 400px;
+            top: -100px;
+            right: -50px;
+        }
+
+        .ph-shape-2 {
+            width: 300px;
+            height: 300px;
+            bottom: -80px;
+            left: -50px;
+        }
+
+        .page-header h1 {
+            font-size: clamp(40px, 6vw, 64px);
+            color: var(--text);
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.2s forwards;
+        }
+
+        .page-header h1 em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .page-header p {
+            font-size: 17px;
+            color: var(--text-mid);
+            max-width: 550px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.5s forwards;
+        }
+
+        .page-divider {
+            width: 50px;
+            height: 1px;
+            background: var(--gold);
+            margin: 25px auto 0;
+            opacity: 0;
+            animation: fadeIn 1s ease 0.8s forwards;
+        }
+
+        /* FILTROS */
+        .filters {
+            padding: 40px 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.6s forwards;
+        }
+
+        .filter-btn {
+            padding: 10px 28px;
+            border: 1.5px solid var(--border);
+            border-radius: 25px;
+            background: var(--white);
+            color: var(--text-mid);
+            font-family: 'Raleway', sans-serif;
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .filter-btn.active {
+            background: var(--gold);
+            color: var(--white);
+            border-color: var(--gold);
+        }
+
+        .books-count {
+            text-align: center;
+            padding: 20px 40px 10px;
+            font-size: 13px;
+            color: var(--text-light);
+            letter-spacing: 1px;
+        }
+
+        /* GRID DE LIBROS */
+        .books-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 40px 100px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px 30px;
+        }
+
+        .book-item {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease forwards;
+            transition: opacity 0.4s, transform 0.4s;
+        }
+
+        .book-item.hidden {
+            display: none;
+        }
+
+        .book-item:nth-child(1) { animation-delay: 0.1s; }
+        .book-item:nth-child(2) { animation-delay: 0.15s; }
+        .book-item:nth-child(3) { animation-delay: 0.2s; }
+        .book-item:nth-child(4) { animation-delay: 0.25s; }
+        .book-item:nth-child(5) { animation-delay: 0.3s; }
+        .book-item:nth-child(6) { animation-delay: 0.35s; }
+        .book-item:nth-child(7) { animation-delay: 0.4s; }
+        .book-item:nth-child(8) { animation-delay: 0.45s; }
+
+        .book-cover-container {
+            position: relative;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(42, 37, 32, 0.1);
+            margin-bottom: 18px;
+            cursor: pointer;
+            aspect-ratio: 2/3;
+        }
+
+        .book-cover-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .book-item:hover .book-cover-container img {
+            transform: scale(1.05);
+        }
+
+        .book-item:hover .book-cover-container {
+            box-shadow: 0 15px 50px rgba(42, 37, 32, 0.18);
+        }
+
+        .book-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                180deg,
+                transparent 40%,
+                rgba(30, 27, 24, 0.95) 100%
+            );
+            opacity: 0;
+            transition: opacity 0.4s;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 25px;
+        }
+
+        .book-item:hover .book-overlay { opacity: 1; }
+
+        .book-overlay p {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.6;
+            margin-bottom: 18px;
+        }
+
+        .book-overlay-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-amazon-small {
+            padding: 10px 22px;
+            background: var(--gold);
+            color: var(--white);
+            font-family: 'Raleway', sans-serif;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border-radius: 20px;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn-amazon-small:hover {
+            background: var(--white);
+            color: var(--text);
+            transform: translateY(-2px);
+        }
+
+        .btn-tienda-small {
+            padding: 10px 22px;
+            background: transparent;
+            color: var(--white);
+            font-family: 'Raleway', sans-serif;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.5);
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn-tienda-small:hover {
+            background: var(--white);
+            color: var(--text);
+            border-color: var(--white);
+        }
+
+        .book-category-tag {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            padding: 5px 14px;
+            background: var(--white);
+            color: var(--gold);
+            font-family: 'Raleway', sans-serif;
+            font-size: 9px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border-radius: 15px;
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .book-item:hover .book-category-tag { opacity: 1; }
+
+        .book-info {
+            text-align: center;
+            padding: 0 5px;
+        }
+
+        .book-info h3 {
+            font-size: 17px;
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: var(--text);
+            transition: color 0.3s;
+        }
+
+        .book-item:hover .book-info h3 { color: var(--gold); }
+
+        .book-info .book-cat {
+            font-size: 11px;
+            color: var(--text-light);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        /* CTA FINAL */
+        .books-cta {
+            background: var(--beige);
+            padding: 100px 40px;
+            text-align: center;
+        }
+
+        .books-cta h2 {
+            font-size: clamp(28px, 4vw, 42px);
+            margin-bottom: 15px;
+            color: var(--text);
+        }
+
+        .books-cta h2 em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .books-cta p {
+            font-size: 16px;
+            color: var(--text-mid);
+            max-width: 500px;
+            margin: 0 auto 35px;
+        }
+
+        .books-cta .btn-primary {
+            padding: 16px 40px;
+            background: var(--gold);
+            color: var(--white);
+            font-family: 'Raleway', sans-serif;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-radius: 30px;
+            border: none;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+
+        .books-cta .btn-primary:hover {
+            background: var(--gold-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(184, 147, 90, 0.35);
+        }
+
+        /* FOOTER */
+        .footer {
+            background: var(--dark);
+            color: rgba(245, 240, 232, 0.6);
+            padding: 60px 60px 40px;
+        }
+
+        .footer-bottom {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            font-size: 12px;
+            color: rgba(245, 240, 232, 0.3);
+        }
+
+        .footer-bottom a {
+            font-size: 12px;
+            color: rgba(245, 240, 232, 0.3);
+            transition: color 0.3s;
+        }
+
+        .footer-bottom a:hover { color: var(--gold); }
+
+        /* ANIMACIONES */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        /* PARTÍCULAS Y LÍNEAS */
+        .hero-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .hero-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .hero-line {
+            position: absolute;
+            width: 1px;
+            height: 100%;
+            background: linear-gradient(
+                180deg,
+                transparent 0%,
+                rgba(184, 147, 90, 0.08) 30%,
+                rgba(184, 147, 90, 0.15) 50%,
+                rgba(184, 147, 90, 0.08) 70%,
+                transparent 100%
+            );
+            animation: line-flow 8s ease-in-out infinite;
+        }
+
+        .line-1 { left: 20%; animation-delay: 0s; }
+        .line-2 { left: 50%; animation-delay: 2.5s; }
+        .line-3 { left: 80%; animation-delay: 5s; }
+
+        @keyframes line-flow {
+            0%, 100% { opacity: 0; transform: translateY(-100%); }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(100%); }
+        }
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .books-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav { padding: 18px 25px; }
+            .menu-toggle { display: block; }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 75%;
+                height: 100vh;
+                background: rgba(255, 251, 245, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 25px;
+                transition: right 0.4s ease;
+                box-shadow: -10px 0 40px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.active { right: 0; }
+            .nav-links a { font-size: 14px; color: var(--text); }
+
+            .books-grid {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 30px 25px 80px;
+                gap: 25px 15px;
+            }
+
+            .page-header { padding: 130px 25px 60px; }
+
+            .filters {
+                padding: 30px 25px 15px;
+                gap: 8px;
+            }
+
+            .filter-btn {
+                padding: 8px 18px;
+                font-size: 10px;
+            }
+
+            .books-cta { padding: 70px 25px; }
+
+            .footer { padding: 40px 25px 30px; }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .books-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 20px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav class="nav">
+        <a href="index.html" class="nav-logo">
+    <img src="images/logo.jpg" alt="Andrea's" class="nav-logo-img">
+</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Menú">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html#libros" class="active">Libros</a></li>
+            <li><a href="index.html#sobre-mi">Sobre mí</a></li>
+            <li><a href="index.html#blog">Blog</a></li>
+            <li><a href="contacto.html">Contacto</a></li>
+            <li><a href="#" class="nav-cta">Tienda</a></li>
+        </ul>
+    </nav>
+
+    <!-- HEADER -->
+    <header class="page-header">
+        <div class="page-header-shape ph-shape-1"></div>
+        <div class="page-header-shape ph-shape-2"></div>
+        <h1>Todos mis <em>libros</em></h1>
+        <p>Cada página nace del deseo de acompañarte. Encuentra el libro que necesitas en este momento de tu camino.</p>
+        <div class="page-divider"></div>
+    </header>
+
+    <!-- FILTROS -->
+    <div class="filters">
+        <button class="filter-btn active" data-filter="todos">Todos</button>
+        <button class="filter-btn" data-filter="novela">Novela</button>
+        <button class="filter-btn" data-filter="cuentos">Cuentos infantiles</button>
+        <button class="filter-btn" data-filter="agendas">Agendas</button>
+        <button class="filter-btn" data-filter="autoayuda">Autoayuda</button>
+    </div>
+
+    <p class="books-count"><span id="bookCount">19</span> publicaciones</p>
+
+    <!-- GRID DE LIBROS -->
+    <div class="books-grid" id="booksGrid">
+
+        <!-- 1. No somos los últimos -->
+        <div class="book-item" data-category="novela">
+            <div class="book-cover-container">
+                <span class="book-category-tag">Novela</span>
+                <img src="images/libros/libro-01.jpg" alt="No somos los últimos">
+                <div class="book-overlay">
+                    <p>El mundo no terminó con explosiones. Terminó con silencio. Una novela de horror postapocalíptico extremo.</p>
+                    <div class="book-overlay-buttons">
+                        <a href="https://amzn.eu/d/0fTlJLCy" target="_blank" class="btn-amazon-small">Amazon</a>
+                        <a href="#" class="btn-tienda-small">Tienda</a>
+                    </div>
+                </div>
+            </div>
+            <div class="book-info">
+                <h3>No somos los últimos</h3>
+                <span class="book-cat">Novela</span>
+            </div>
+        </div>
+
+        <!-- 2. Anatomía del error -->
+        <div class="book-item" data-category="novela">
+            <div class="book-cover-container">
+                <span class="book-category-tag">Novela</span>
+                <img src="images/libros/libro-02.jpg" alt="Anatomía del error">
+                <div class="book-overlay">
+                    <p>En una sociedad donde el crimen ha sido erradicado, la perfección tiene un precio… y se paga con el cuerpo.</p>
+                    <div class="book-overlay-buttons">
+                        <a href="https://amzn.eu/d/03KSKZ6i" target="_blank" class="btn-amazon-small">Amazon</a>
+                        <a href="#" class="btn-tienda-small">Tienda</a>
+                    </div>
+                </div>
+            </div>
+            <div class="book-info">
+                <h3>Anatomía del error</h3>
+                <span class="book-cat">Novela</span>
+            </div>
+        </div>
+
+        <!-- 3. Seguimos Aquí -->
+        <div class="book-item" data-category="novela">
+            <div class="book-cover-container">
+                <span class="book-category-tag">Novela</span>
+                <img src="images/libros/libro-03.jpg" alt="Seguimos Aquí">
+                <div class="book-overlay">
+                    <p>Existe un lugar que no aparece en los mapas. Un barrio oculto por el Estado donde nadie muere jamás.</p>
+                    <div class="book-overlay-buttons">
+                        <a href="https://amzn.eu/d/0gK0lmnY" target="_blank" class="btn-amazon-small">Amazon</a>
+                        <a href="#" class="btn-tienda-small">Tienda</a>
+                    </div>
+                </div>
+            </div>
+            <div class="book-info">
+                <h3>Seguimos Aquí</h3>
+                <span class="book-cat">Novela</span>
+            </div>
+        </div>
+
+        <!-- 4. La Culpa -->
+        <div class="book-item" data-category="novela">
+            <div class="book-cover-container">
+                <span class="book-category-tag">Novela</span>
+                <img src="images/libros/libro-04.jpg" alt="La Culpa">
+                <div class="book-overlay">
+                    <p>¿Y si la culpa fuera el combustible que mantiene vivo al mundo? Cada error ilumina un edificio y cada tragedia mantiene encendida la civilización.</p>
+                    <div class="book-overlay-buttons">
+                        <a href="https://amzn.eu/d/07MXdgWH" target="_blank" class="btn-amazon-small">Amazon</a>
+                        <a href="#" class="btn-tienda-small">Tienda</a>
+                    </div>
+                </div>
+            </div>
+            <div class="book-info">
+                <h3>La Culpa</h3>
+                <span class="book-cat">Novela</span>
+            </div>
+        </div>
+
+        <!-- 5. El miedo -->
+        <div class="book-item" data-category="novela">
+            <div class="book-cover-container">
+                <span class="book-category-tag">Novela</span>
+                <img src="images/libros/libro-05.jpg" alt="El miedo">
+                <div class="book-overlay">
+                    <p>En este mundo, el miedo no es una emoción. Es un recurso.</p>
+                    <div class="book-overlay-buttons">
+                        <a href="https://amzn.eu/d/0ad5GO7A" target="_blank" class="btn-amazon-small">Amazon</a>
+                        <a href="#" class="btn-tienda-small">Tienda</a>
+                    </div>
+                </div>
+            </div>
+            <div class="book-info">
+                <h3>El miedo</h3>
+                <span class="book-cat">Novela</span>
+            </div>
+        </div>
+
+        <!-- 6. No dormir -->
+        <div class="book-item" data-category="novela">
+            <div class="book-cover-container">
+                <span class="book-category-tag">Novela</span>
+                <img src="images/libros/libro-06.jpg" alt="No dormir">
+                <div class="book-overlay">
+                    <p>Hace quince años, millones de personas cerraron los ojos al mismo tiempo… y desaparecieron. No murieron. Simplemente no despertaron.</p>
+                    <div class="book-overlay-buttons">
+                        <a href="https://amzn.eu/d/083QLCqW" target="_blank" class="btn-amazon-small">Amazon</a>
+                        <a href="#" class="btn-tienda-small">Tienda</a>
+                    </div>
+                </div>
+            </div>
+            <div class="book-info">
+                <h3>No dormir</h3>
+                <span class="book-cat">Novela</span>
+            </div>
+        </div>
+
+        <!-- 7. Andrea y el botón mágico -->
+        <div class="book-item" data-category="cuentos">
+            <div class="book-cover-container">
+                <span class="book-category-tag">Cuentos infantiles</span>
+                <img src="images/libros/libro-07.jpg" alt="Andrea y el botón mágico">
+                <div class="book-overlay">
+                    <p>¿Qué pasaría si pudieras detener el tiempo? Un cuento infantil con una poderosa enseñanza sobre vivir el presente.</p>
+                    <div class="book-overlay-buttons">
+                        <a href="https://amzn.eu/d/04rLOo10" target="_blank" class="btn-amazon-small">Amazon</a>
+                        <a href="#" class="btn-tienda-small">Tienda</a>
+                    </div>
+                </div>
+            </div>
+            <div class="book-info">
+                <h3>Andrea y el botón mágico</h3>
+                <span class="book-cat">Cuentos infantiles</span>
+            </div>
+        </div>
+
+        <!-- 8. Agenda Mitológica 2026 -->
+        <div class="book-item" data-category="agendas">
+            <div class="book-cover-container">
+                <span class="book-category-tag">Agendas</span>
+                <img src="images/libros/libro-08.jpg" alt="Agenda Mitológica 2026">
+                <div class="book-overlay">
+                    <p>Sumérgete en el mundo de la mitología griega, donde cada mes revela la fuerza y los misterios de los dioses del Olimpo.</p>
+                    <div class="book-overlay-buttons">
+                        <a href="https://amzn.eu/d/0bcJnd4K" target="_blank" class="btn-amazon-small">Amazon</a>
+                        <a href="#" class="btn-tienda-small">Tienda</a>
+                    </div>
+                </div>
+            </div>
+            <div class="book-info">
+                <h3>Agenda Mitológica 2026</h3>
+                <span class="book-cat">Agendas</span>
+            </div>
+        </div>
+
+        <!-- 9. Agenda Astrológica 2026 -->
+        <div class="book-item" data-category="agendas">
+            <div class="book-cover-container">
+                <span class="book-category-tag">Agendas</span>
+                <img src="images/libros/libro-09.jpg" alt="Agenda Astrológica 2026">
+                <div class="book-overlay">
+                    <p>Descubre el poder de los astros y organiza tu año con intención. Conecta y fluye con la energía de cada signo.</p>
+                    <div class="book-overlay-buttons">
+                        <a href="https://amzn.eu/d/05h7DPx2" target="_blank" class="btn-amazon-small">Amazon</a>
+                        <a href="#" class="btn-tienda-small">Tienda</a>
+                    </div>
+                </div>
+            </div>
+            <div class="book-info">
+                <h3>Agenda Astrológica 2026</h3>
+                <span class="book-cat">Agendas</span>
+            </div>
+        </div>
+
+        <!-- 10. Adara no quería compartir -->
+        <div class="book-item" data-category="cuentos">
+            <div class="book-cover-container">
+                <span class="book-category-tag">Cuentos infantiles</span>
+                <img src="images/libros/libro-10.jpg" alt="Adara no quería compartir">
+                <div class="book-overlay">
+                    <p>Adara descubrirá que compartir no significa perder, sino ganar algo mucho más valioso: amigos, aventuras y risas.</p>
+                    <div class="book-overlay-buttons">
+                        <a href="https://amzn.eu/d/0fpCGE9p" target="_blank" class="btn-amazon-small">Amazon</a>
+                        <a href="#" class="btn-tienda-small">Tienda</a>
+                    </div>
+                </div>
+            </div>
+            <div class="book-info">
+                <h3>Adara no quería compartir</h3>
+                <span class="book-cat">Cuentos infantiles</span>
+            </div>
+        </div>
+
+        <!-- 11. El monstruo que tenía miedo a la oscuridad -->
+        <div class="book-item" data-category="cuentos">
+            <div class="book-cover-container">
+                <span class="book-category-tag">Cuentos infantiles</span>
+                <img src="images/libros/libro-11.jpg" alt="El monstruo que tenía miedo a la oscuridad">
+                <div class="book-overlay">
+                    <p>¿Y si el monstruo que cuida los sueños también tuviera miedo? Milo guarda un secreto que no se atreve a contar.</p>
+                    <div class="book-overlay-buttons">
+                        <a href="https://amzn.eu/d/0isQIuCT" target="_blank" class="btn-amazon-small">Amazon</a>
+                        <a href="#" class="btn-tienda-small">Tienda</a>
+                    </div>
+                </div>
+            </div>
+            <div class="book-info">
+                <h3>El monstruo que tenía miedo a la oscuridad</h3>
+                <span class="book-cat">Cuentos infantiles</span>
+            </div>
+        </div>
+
+        <!-- 12. Agenda Correspondencia 2026 -->
+        <div class="book-item" data-category="agendas">
+            <div class="book-cover-container">
+                <span class="book-category-tag">Agendas</span>
+                <img src="images/libros/libro-12.jpg" alt="Agenda Correspondencia 2026">
+                <div class="book-overlay">
+                    <p>Conecta contigo, con los demás y con el universo. Como es adentro, es afuera.</p>
+                    <div class="book-overlay-buttons">
+                        <a href="https://amzn.eu/d/09Hfh5jx" target="_blank" class="btn-amazon-small">Amazon</a>
+                        <a href="#" class="btn-tienda-small">Tienda</a>
+                    </div>
+                </div>
+            </div>
+            <div class="book-info">
+                <h3>Agenda Correspondencia 2026</h3>
+                <span class="book-cat">Agendas</span>
+            </div>
+        </div>
+
+        <!-- 13. Irte también es un derecho -->
+        <div class="book-item" data-category="novela">
+            <div class="book-cover-container">
+                <span class="book-category-tag">Novela</span>
+                <img src="images/libros/libro-13.jpg" alt="Irte también es un derecho">
+                <div class="book-overlay">
+                    <p>¿Y si irte no fuera egoísmo, sino supervivencia? Un libro para quienes crecieron en familias donde el amor dolía.</p>
+                    <div class="book-overlay-buttons">
+                        <a href="https://amzn.eu/d/0dpmgX0D" target="_blank" class="btn-amazon-small">Amazon</a>
+                        <a href="#" class="btn-tienda-small">Tienda</a>
+                    </div>
+                </div>
+            </div>
+            <div class="book-info">
+                <h3>Irte también es un derecho</h3>
+                <span class="book-cat">Novela</span>
+            </div>
+        </div>
+
+        <!-- 14. A pesar de los (D)años -->
+        <div class="book-item" data-category="autoayuda">
+            <div class="book-cover-container">
+                <span class="book-category-tag">Autoayuda</span>
+                <img src="images/libros/libro-14.jpg" alt="A pesar de los (D)años">
+                <div class="book-overlay">
+                    <p>Hay dolores que no se ven, pero condicionan la forma en la que vives. A veces no sabes qué te pasa, solo sientes que algo pesa.</p>
+                    <div class="book-overlay-buttons">
+                        <a href="https://amzn.eu/d/0ajO70B0" target="_blank" class="btn-amazon-small">Amazon</a>
+                        <a href="#" class="btn-tienda-small">Tienda</a>
+                    </div>
+                </div>
+            </div>
+            <div class="book-info">
+                <h3>A pesar de los (D)años</h3>
+                <span class="book-cat">Autoayuda</span>
+            </div>
+        </div>
+
+        <!-- 15. Hoy me trato bonito -->
+        <div class="book-item" data-category="autoayuda">
+            <div class="book-cover-container">
+                <span class="book-category-tag">Autoayuda</span>
+                <img src="images/libros/libro-15.jpg" alt="Hoy me trato bonito">
+                <div class="book-overlay">
+                    <p>Un libro de acompañamiento emocional para los días en que no puedes con todo. No intenta motivarte ni empujarte.</p>
+                    <div class="book-overlay-buttons">
+                        <a href="https://amzn.eu/d/0iCjwPio" target="_blank" class="btn-amazon-small">Amazon</a>
+                        <a href="#" class="btn-tienda-small">Tienda</a>
+                    </div>
+                </div>
+            </div>
+            <div class="book-info">
+                <h3>Hoy me trato bonito</h3>
+                <span class="book-cat">Autoayuda</span>
+            </div>
+        </div>
+
+        <!-- 16. Yo no me abandono -->
+        <div class="book-item" data-category="autoayuda">
+            <div class="book-cover-container">
+                <span class="book-category-tag">Autoayuda</span>
+                <img src="images/libros/libro-16.jpg" alt="Yo no me abandono">
+                <div class="book-overlay">
+                    <p>¿Alguna vez te quedaste en una relación que te hacía daño? No es un libro sobre el amor romántico. Es un libro sobre despertar.</p>
+                    <div class="book-overlay-buttons">
+                        <a href="https://amzn.eu/d/08jpLCBx" target="_blank" class="btn-amazon-small">Amazon</a>
+                        <a href="#" class="btn-tienda-small">Tienda</a>
+                    </div>
+                </div>
+            </div>
+            <div class="book-info">
+                <h3>Yo no me abandono</h3>
+                <span class="book-cat">Autoayuda</span>
+            </div>
+        </div>
+
+        <!-- 17. YO SOY EL YO SOY -->
+        <div class="book-item" data-category="autoayuda">
+            <div class="book-cover-container">
+                <span class="book-category-tag">Autoayuda</span>
+                <img src="images/libros/libro-17.jpg" alt="Yo Soy el Yo Soy">
+                <div class="book-overlay">
+                    <p>Una guía práctica y transformadora para descubrir quién eres realmente y construir una mentalidad poderosa.</p>
+                    <div class="book-overlay-buttons">
+                        <a href="https://amzn.eu/d/06X3snQc" target="_blank" class="btn-amazon-small">Amazon</a>
+                        <a href="#" class="btn-tienda-small">Tienda</a>
+                    </div>
+                </div>
+            </div>
+            <div class="book-info">
+                <h3>Yo Soy el Yo Soy</h3>
+                <span class="book-cat">Autoayuda</span>
+            </div>
+        </div>
+
+        <!-- 18. Agenda Códigos Sagrados 2026 -->
+        <div class="book-item" data-category="agendas">
+            <div class="book-cover-container">
+                <span class="book-category-tag">Agendas</span>
+                <img src="images/libros/libro-18.jpg" alt="Agenda Códigos Sagrados 2026">
+                <div class="book-overlay">
+                    <p>Una agenda que une organización, espiritualidad y manifestación para acompañarte cada día del año.</p>
+                    <div class="book-overlay-buttons">
+                        <a href="https://amzn.eu/d/0i8htVOa" target="_blank" class="btn-amazon-small">Amazon</a>
+                        <a href="#" class="btn-tienda-small">Tienda</a>
+                    </div>
+                </div>
+            </div>
+            <div class="book-info">
+                <h3>Agenda Códigos Sagrados 2026</h3>
+                <span class="book-cat">Agendas</span>
+            </div>
+        </div>
+
+        <!-- 19. Mi amor quiero conocerte -->
+        <div class="book-item" data-category="novela">
+            <div class="book-cover-container">
+                <span class="book-category-tag">Novela</span>
+                <img src="images/libros/libro-19.jpg" alt="Mi amor quiero conocerte">
+                <div class="book-overlay">
+                    <p>Una invitación a explorar juntos los recovecos de vuestra historia, desde la infancia hasta los sueños compartidos.</p>
+                    <div class="book-overlay-buttons">
+                        <a href="https://amzn.eu/d/05cOwuSl" target="_blank" class="btn-amazon-small">Amazon</a>
+                        <a href="#" class="btn-tienda-small">Tienda</a>
+                    </div>
+                </div>
+            </div>
+            <div class="book-info">
+                <h3>Mi amor quiero conocerte</h3>
+                <span class="book-cat">Novela</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- CTA FINAL -->
+    <section class="books-cta">
+        <h2>También en la <em>tienda online</em></h2>
+        <p>Todos los libros y agendas disponibles en formato físico y digital en la tienda oficial.</p>
+        <!-- REEMPLAZA # CON ENLACE DE SU TIENDA -->
+        <a href="#" class="btn-primary">Visitar tienda</a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-bottom">
+            <p>© 2025 Andrea's. Todos los derechos reservados.</p>
+            <a href="index.html">← Volver al inicio</a>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+                // Menú móvil
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Filtros
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const bookItems = document.querySelectorAll('.book-item');
+        const bookCount = document.getElementById('bookCount');
+
+        function applyFilter(filter) {
+            let count = 0;
+
+            filterBtns.forEach(b => {
+                b.classList.remove('active');
+                if (b.dataset.filter === filter) {
+                    b.classList.add('active');
+                }
+            });
+
+            bookItems.forEach(item => {
+                if (filter === 'todos' || item.dataset.category === filter) {
+                    item.classList.remove('hidden');
+                    item.style.display = '';
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateY(30px)';
+                    count++;
+
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateY(0)';
+                    }, 50 * count);
+                } else {
+                    item.classList.add('hidden');
+                    item.style.display = 'none';
+                }
+            });
+
+            bookCount.textContent = count;
+        }
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                applyFilter(btn.dataset.filter);
+            });
+        });
+
+        // Leer filtro de la URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const filtroURL = urlParams.get('filtro');
+
+        if (filtroURL) {
+            applyFilter(filtroURL);
+        }
+                // Partículas doradas
+        const canvas = document.getElementById('heroParticles');
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+            let mouseX = 0;
+            let mouseY = 0;
+
+            function resizeCanvas() {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
+
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+
+            class Particle {
+                constructor() { this.reset(); }
+
+                reset() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 3 + 1;
+                    this.speedX = (Math.random() - 0.5) * 0.5;
+                    this.speedY = (Math.random() - 0.5) * 0.3 - 0.2;
+                    this.opacity = Math.random() * 0.5 + 0.1;
+                    this.fadeSpeed = Math.random() * 0.005 + 0.002;
+                    this.growing = true;
+                    this.maxOpacity = this.opacity;
+                }
+
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.growing) {
+                        this.opacity += this.fadeSpeed;
+                        if (this.opacity >= this.maxOpacity) this.growing = false;
+                    } else {
+                        this.opacity -= this.fadeSpeed;
+                        if (this.opacity <= 0) this.reset();
+                    }
+                    const dx = mouseX - this.x;
+                    const dy = mouseY - this.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 150) {
+                        this.x -= dx * 0.01;
+                        this.y -= dy * 0.01;
+                    }
+                    if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                    if (this.y < -20) this.reset();
+                }
+
+                draw() {
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(184, 147, 90, ${this.opacity})`;
+                    ctx.fill();
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size * 3, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(184, 147, 90, ${this.opacity * 0.15})`;
+                    ctx.fill();
+                }
+            }
+
+            for (let i = 0; i < 60; i++) { particles.push(new Particle()); }
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+
+            function drawConnections() {
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const dx = particles[i].x - particles[j].x;
+                        const dy = particles[i].y - particles[j].y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
+                        if (dist < 120) {
+                            const opacity = (1 - dist / 120) * 0.08;
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x, particles[i].y);
+                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.strokeStyle = `rgba(184, 147, 90, ${opacity})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                drawConnections();
+                particles.forEach(p => { p.update(); p.draw(); });
+                requestAnimationFrame(animate);
+            }
+
+            animate();
+        }
+    </script>
+
+</body>
+</html>
